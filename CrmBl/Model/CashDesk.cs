@@ -21,6 +21,7 @@ namespace CrmBl.Model
         public int MaxQueueLength { get; set; }
         public int ExitCustomer { get; set; }
         public bool IsModel { get; set; }
+        public int Count => Queue.Count;
 
         public void Enqueue(Cart cart)
         {
@@ -37,6 +38,12 @@ namespace CrmBl.Model
         public decimal Dequeue()
         {
             decimal sum = 0;
+
+            if (Queue.Count == 0)
+            {
+                return 0;
+            }
+
             var cart = Queue.Dequeue();
 
             if (cart != null)
