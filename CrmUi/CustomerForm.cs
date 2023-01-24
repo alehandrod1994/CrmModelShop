@@ -28,9 +28,11 @@ namespace CrmUi
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            var c = Customer ?? new Customer();
-            Name = textBox1.Text;
-
+            Customer = Customer ?? new Customer()
+            {
+                Name = textBox1.Text
+            };
+           
             Close();
         }
     }

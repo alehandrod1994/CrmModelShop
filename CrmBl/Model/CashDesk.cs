@@ -13,6 +13,7 @@ namespace CrmBl.Model
             Seller = seller;
             Queue = new Queue<Cart>();
             IsModel = true;
+            MaxQueueLength = 10;
         }
 
         public int Number { get; set; }
@@ -22,6 +23,7 @@ namespace CrmBl.Model
         public int ExitCustomer { get; set; }
         public bool IsModel { get; set; }
         public int Count => Queue.Count;
+        public event EventHandler<Check> CheckClosed;
 
         public void Enqueue(Cart cart)
         {
@@ -91,13 +93,22 @@ namespace CrmBl.Model
                     }
                 }
 
+                check.Price = sum;
+
                 if (!IsModel)
                 {
                     _db.SaveChanges();
                 }
+
+                CheckClosed?.Invoke(this, check);
             }
 
             return sum;
+        }
+
+        public override string ToString()
+        {
+            return $"Касса №{Number}";
         }
     }
 }
