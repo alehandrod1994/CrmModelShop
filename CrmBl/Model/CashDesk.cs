@@ -5,15 +5,16 @@ namespace CrmBl.Model
 {
     public class CashDesk
     {
-        private CrmContext _db = new CrmContext();
+        private CrmContext _db;
 
-        public CashDesk(int number, Seller seller)
+        public CashDesk(int number, Seller seller, CrmContext db)
         {
             Number = number;
             Seller = seller;
             Queue = new Queue<Cart>();
             IsModel = true;
             MaxQueueLength = 10;
+            _db = db ?? new CrmContext();
         }
 
         public int Number { get; set; }
@@ -27,7 +28,7 @@ namespace CrmBl.Model
 
         public void Enqueue(Cart cart)
         {
-            if (Queue.Count <= MaxQueueLength)
+            if (Queue.Count < MaxQueueLength)
             {
                 Queue.Enqueue(cart);
             }

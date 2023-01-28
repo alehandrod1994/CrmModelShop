@@ -19,7 +19,7 @@ namespace CrmUi
             InitializeComponent();          
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             var cashBoxes = new List<CashBoxView>();
 
@@ -47,14 +47,19 @@ namespace CrmUi
             numericUpDown2.Value = _model.CashDeskSpeed;
         }
 
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        private void NumericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             _model.CustomerSpeed = (int)numericUpDown1.Value;
         }
 
-        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        private void NumericUpDown2_ValueChanged(object sender, EventArgs e)
         {
             _model.CashDeskSpeed = (int)numericUpDown2.Value;
+        }
+
+        private void ModelForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _model.Stop();
         }
     }
 }
