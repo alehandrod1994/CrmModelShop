@@ -8,11 +8,10 @@ namespace CrmBl.Model
 {
     public class ShopComputerModel
     {
-        private Generator _generator = new Generator();
-        private Random _rnd = new Random();
-        private bool _isWorking = false;
-        private List<Task> _tasks = new List<Task>();
-        private CancellationTokenSource _cancelTokenSoure = new CancellationTokenSource();
+        private readonly Generator _generator = new Generator();
+        private readonly Random _rnd = new Random();
+        private readonly List<Task> _tasks = new List<Task>();
+        private readonly CancellationTokenSource _cancelTokenSoure = new CancellationTokenSource();
         private CancellationToken _token;
 
         public ShopComputerModel()

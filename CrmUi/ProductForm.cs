@@ -1,18 +1,14 @@
 ﻿using CrmBl.Model;
+using CrmShopModel.UI;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CrmUi
 {
     public partial class ProductForm : Form
-    {        
+    {
         public ProductForm()
         {
             InitializeComponent();
@@ -21,23 +17,41 @@ namespace CrmUi
         public ProductForm(Product product) : this()
         {
             Product = product ?? new Product();
-            textBox1.Text = Product.Name;
-            numericUpDown1.Value = Product.Price;
-            numericUpDown2.Value = Product.Count;
+            tbName.Text = Product.Name;
+            nudPrice.Value = Product.Price;
+            nudCount.Value = Product.Count;
         }
 
         public Product Product { get; private set; }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            Product = Product ?? new Product()
+            foreach (Control control in Controls)
             {
-                Name = textBox1.Text,
-                Price = numericUpDown1.Value,
-                Count = Convert.ToInt32(numericUpDown2.Value)
-            }; 
-           
-            Close();
+                if (control is TextBox || control is NumericUpDown)
+                {
+                    control.BackColor = Color.White;
+                }
+            }
+
+            List<Control> controls = Checker.CheckControlsOnNull(Controls);
+            if (controls.Count > 0)
+            {
+                foreach (Control control in controls)
+                {
+                    control.BackColor = Color.LightCoral;
+                }
+
+                MessageBox.Show("Заполните все поля.");
+                return;
+            }
+
+            Product = Product ?? new Product();
+            Product.Name = tbName.Text;
+            Product.Price = nudPrice.Value;
+            Product.Count = Convert.ToInt32(nudCount.Value);
+
+            DialogResult = DialogResult.OK;
         }
     }
 }

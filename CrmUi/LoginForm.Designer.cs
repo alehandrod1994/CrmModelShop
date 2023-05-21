@@ -58,7 +58,7 @@ namespace CrmUi
             this.button1.TabIndex = 2;
             this.button1.Text = "Войти";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // LoginForm
             // 
@@ -70,7 +70,7 @@ namespace CrmUi
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Name = "LoginForm";
-            this.Text = "Login";
+            this.Text = "Вход";
             this.ResumeLayout(false);
             this.PerformLayout();
 

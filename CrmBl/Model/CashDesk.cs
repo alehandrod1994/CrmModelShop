@@ -5,7 +5,7 @@ namespace CrmBl.Model
 {
     public class CashDesk
     {
-        private CrmContext _db;
+        private readonly CrmContext _db;
 
         public CashDesk(int number, Seller seller, CrmContext db)
         {

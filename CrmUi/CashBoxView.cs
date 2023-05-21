@@ -1,16 +1,12 @@
 ﻿using CrmBl.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CrmUi
 {
     public class CashBoxView
     {
-        private CashDesk _cashDesk;
+        private readonly CashDesk _cashDesk;
 
         public CashBoxView(CashDesk cashDesk, int number, int x, int y)
         {

@@ -63,6 +63,11 @@
     <Compile Include="Catalog.Designer.cs">
       <DependentUpon>Catalog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Checker.cs" />
+    <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\CustomerCommand.cs" />
+    <Compile Include="Commands\ProductCommand.cs" />
+    <Compile Include="Commands\SellerCommand.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

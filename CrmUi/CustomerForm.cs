@@ -1,39 +1,45 @@
 ﻿using CrmBl.Model;
+using CrmShopModel.UI;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CrmUi
 {
     public partial class CustomerForm : Form
     {
-        public CustomerForm()
+        public CustomerForm() 
         {
             InitializeComponent();
         }
 
         public CustomerForm(Customer customer) : this()
-        {
+        {           
             Customer = customer ?? new Customer();
-            textBox1.Text = Customer.Name;
+            tbName.Text = Customer.Name;
         }
 
         public Customer Customer { get; private set; }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            Customer = Customer ?? new Customer()
+            List<Control> controls = Checker.CheckControlsOnNull(Controls);
+            if (controls.Count > 0)
             {
-                Name = textBox1.Text
-            };
-           
-            Close();
+                foreach (Control control in controls)
+                {
+                    control.BackColor = Color.LightCoral;
+                }
+
+                MessageBox.Show("Заполните все поля.");
+                return;
+            }
+
+            Customer = Customer ?? new Customer();
+            Customer.Name = tbName.Text;
+
+            DialogResult = DialogResult.OK;
         }
     }
 }

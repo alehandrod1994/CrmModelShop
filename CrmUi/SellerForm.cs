@@ -1,18 +1,14 @@
 ﻿using CrmBl.Model;
+using CrmShopModel.UI;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CrmUi
 {
     public partial class SellerForm : Form
-    {        
+    {
         public SellerForm()
         {
             InitializeComponent();
@@ -21,19 +17,29 @@ namespace CrmUi
         public SellerForm(Seller seller) : this()
         {
             Seller = seller ?? new Seller();
-            textBox1.Text = Seller.Name;
+            tbName.Text = Seller.Name;
         }
 
         public Seller Seller { get; private set; }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            Seller = Seller ?? new Seller()
+            List<Control> controls = Checker.CheckControlsOnNull(Controls);
+            if (controls.Count > 0)
             {
-                Name = textBox1.Text
-            };
-                  
-            Close();
+                foreach (Control control in controls)
+                {
+                    control.BackColor = Color.LightCoral;
+                }
+
+                MessageBox.Show("Заполните все поля.");
+                return;
+            }
+
+            Seller = Seller ?? new Seller();
+            Seller.Name = tbName.Text;
+
+            DialogResult = DialogResult.OK;
         }
     }
 }

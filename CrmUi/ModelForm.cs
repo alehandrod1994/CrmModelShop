@@ -1,19 +1,13 @@
 ﻿using CrmBl.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CrmUi
 {
     public partial class ModelForm : Form
     {
-        private ShopComputerModel _model = new ShopComputerModel();
+        private readonly ShopComputerModel _model = new ShopComputerModel();
         public ModelForm()
         {
             InitializeComponent();          
