@@ -24,6 +24,7 @@ namespace CrmUi
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            #region Проверка контролов
             List<Control> controls = Checker.CheckControlsOnNull(Controls);
             if (controls.Count > 0)
             {
@@ -35,6 +36,7 @@ namespace CrmUi
                 MessageBox.Show("Заполните все поля.");
                 return;
             }
+            #endregion
 
             Customer = Customer ?? new Customer();
             Customer.Name = tbName.Text;

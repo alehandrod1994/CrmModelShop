@@ -50,10 +50,5 @@ namespace CrmUi
         {
             _model.CashDeskSpeed = (int)numericUpDown2.Value;
         }
-
-        private void ModelForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            _model.Stop();
-        }
     }
 }

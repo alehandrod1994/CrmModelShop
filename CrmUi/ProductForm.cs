@@ -26,6 +26,7 @@ namespace CrmUi
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            #region Проверка контролов
             foreach (Control control in Controls)
             {
                 if (control is TextBox || control is NumericUpDown)
@@ -33,7 +34,7 @@ namespace CrmUi
                     control.BackColor = Color.White;
                 }
             }
-
+          
             List<Control> controls = Checker.CheckControlsOnNull(Controls);
             if (controls.Count > 0)
             {
@@ -45,6 +46,7 @@ namespace CrmUi
                 MessageBox.Show("Заполните все поля.");
                 return;
             }
+            #endregion
 
             Product = Product ?? new Product();
             Product.Name = tbName.Text;

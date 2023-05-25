@@ -80,6 +80,7 @@ namespace CrmUi
             this.btnRemove.TabIndex = 3;
             this.btnRemove.Text = "Удалить";
             this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
             // 
             // Catalog
             // 

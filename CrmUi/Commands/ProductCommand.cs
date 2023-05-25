@@ -5,8 +5,15 @@ using System.Windows.Forms;
 
 namespace CrmShopModel.UI.Commands
 {
+	/// <summary>
+	/// Команды для товара.
+	/// </summary>
     public class ProductCommand : BaseCommand, ICommand
     {
+		/// <summary>
+		/// Добавляет новый товар.
+		/// </summary>
+		/// <param name="db"> Контекст БД. </param>
         public void Add(CrmContext db)
         {
             var form = new ProductForm();
@@ -17,6 +24,11 @@ namespace CrmShopModel.UI.Commands
             }
         }
 
+		/// <summary>
+		/// Изменяет данные товара.
+		/// </summary>
+		/// <param name="db"> Контекст БД. </param>
+		/// <param name="id"> Идентификатор. </param>
         public void Change(CrmContext db, int id)
         {
             if (db.Products.Find(id) is Product product)
@@ -29,6 +41,11 @@ namespace CrmShopModel.UI.Commands
             }
         }
 
+		/// <summary>
+		/// Удаляет товар.
+		/// </summary>
+		/// <param name="db"> Контекст БД. </param>
+		/// <param name="id"> Идентификатор. </param>
         public void Remove(CrmContext db, int id)
         {
             if (db.Products.Find(id) is Product product)

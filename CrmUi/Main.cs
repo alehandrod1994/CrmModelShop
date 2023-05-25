@@ -83,9 +83,9 @@ namespace CrmUi
 		{
 			Task.Run(() =>
 			{
-				listBox1.Invoke((Action)delegate
+				listBoxProducts.Invoke((Action)delegate
 				{
-					listBox1.Items.AddRange(_db.Products.ToArray());
+					listBoxProducts.Items.AddRange(_db.Products.ToArray());
 					UpdateLists();
 				});
 			});
@@ -94,18 +94,26 @@ namespace CrmUi
 
 		private void ListBox1_DoubleClick(object sender, EventArgs e)
 		{
-			if (listBox1.SelectedItem is Product product)
+			if (listBoxProducts.SelectedItem is Product product)
 			{
 				_cart.Add(product);
-				listBox2.Items.Add(product);
+				UpdateLists();
+			}
+		}
+
+		private void ListBoxCart_DoubleClick(object sender, EventArgs e)
+		{
+			if (listBoxCart.SelectedItem is Product product)
+			{
+				_cart.Remove(product);
 				UpdateLists();
 			}
 		}
 
 		private void UpdateLists()
 		{
-			listBox2.Items.Clear();
-			listBox2.Items.AddRange(_cart.GetAll().ToArray());
+			listBoxCart.Items.Clear();
+			listBoxCart.Items.AddRange(_cart.GetAll().ToArray());
 			labelPrice.Text = "Итого: " + _cart.Price;
 		}
 
@@ -138,7 +146,7 @@ namespace CrmUi
 			{
 				_cashDesk.Enqueue(_cart);
 				var price = _cashDesk.Dequeue();
-				listBox2.Items.Clear();
+				listBoxCart.Items.Clear();
 				_cart = new Cart(_customer);
 
 				MessageBox.Show("Покупка выполнена успешно. Сумма: " + price, "Покупка выполнена", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -148,5 +156,7 @@ namespace CrmUi
 				MessageBox.Show("Авторизуйтесь, пожалуйста", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
-	}
+
+       
+    }
 }

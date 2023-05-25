@@ -39,10 +39,10 @@ namespace CrmUi
             this.customerAddToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.checkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBoxProducts = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.listBoxCart = new System.Windows.Forms.ListBox();
             this.labelPrice = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -133,14 +133,14 @@ namespace CrmUi
             this.modelToolStripMenuItem.Text = "Моделирование";
             this.modelToolStripMenuItem.Click += new System.EventHandler(this.ModelToolStripMenuItem_Click);
             // 
-            // listBox1
+            // listBoxProducts
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 92);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(253, 459);
-            this.listBox1.TabIndex = 1;
-            this.listBox1.DoubleClick += new System.EventHandler(this.ListBox1_DoubleClick);
+            this.listBoxProducts.FormattingEnabled = true;
+            this.listBoxProducts.Location = new System.Drawing.Point(12, 92);
+            this.listBoxProducts.Name = "listBoxProducts";
+            this.listBoxProducts.Size = new System.Drawing.Size(253, 459);
+            this.listBoxProducts.TabIndex = 1;
+            this.listBoxProducts.DoubleClick += new System.EventHandler(this.ListBox1_DoubleClick);
             // 
             // label1
             // 
@@ -160,13 +160,14 @@ namespace CrmUi
             this.label2.TabIndex = 4;
             this.label2.Text = "Корзина";
             // 
-            // listBox2
+            // listBoxCart
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(315, 92);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(162, 394);
-            this.listBox2.TabIndex = 3;
+            this.listBoxCart.FormattingEnabled = true;
+            this.listBoxCart.Location = new System.Drawing.Point(315, 92);
+            this.listBoxCart.Name = "listBoxCart";
+            this.listBoxCart.Size = new System.Drawing.Size(162, 394);
+            this.listBoxCart.TabIndex = 3;
+            this.listBoxCart.DoubleClick += new System.EventHandler(this.ListBoxCart_DoubleClick);
             // 
             // labelPrice
             // 
@@ -207,9 +208,9 @@ namespace CrmUi
             this.Controls.Add(this.button1);
             this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.listBoxCart);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.listBoxProducts);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Main";
@@ -234,10 +235,10 @@ namespace CrmUi
         private System.Windows.Forms.ToolStripMenuItem sellerAddToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem customerAddToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem modelToolStripMenuItem;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBoxProducts;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox listBoxCart;
         private System.Windows.Forms.Label labelPrice;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.LinkLabel linkLabel1;

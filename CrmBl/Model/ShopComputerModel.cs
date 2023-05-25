@@ -6,14 +6,35 @@ using System.Threading.Tasks;
 
 namespace CrmBl.Model
 {
+	/// <summary>
+	/// Компьютерное моделирование.
+	/// </summary>
     public class ShopComputerModel
     {
+		/// <summary>
+		/// Генератор.
+		/// </summary>
         private readonly Generator _generator = new Generator();
+		
+		/// <summary>
+		/// Генератор случайных чисел.
+		/// </summary>
         private readonly Random _rnd = new Random();
+		
+		/// <summary>
+		/// Список асинхронных задач.
+		/// </summary>
         private readonly List<Task> _tasks = new List<Task>();
-        private readonly CancellationTokenSource _cancelTokenSoure = new CancellationTokenSource();
+		
+		/// <summary>
+		/// Токен для остановки моделирования.
+		/// </summary>
+        private readonly CancellationTokenSource _cancelTokenSource;
         private CancellationToken _token;
 
+		/// <summary>
+		/// Инициализирует новый экземпляр класса ShopComputerModel.
+		/// </summary>
         public ShopComputerModel()
         {
             CashDesks = new List<CashDesk>();
@@ -22,7 +43,8 @@ namespace CrmBl.Model
             Sells = new List<Sell>();
             Sellers = new Queue<Seller>();
 
-            _token = _cancelTokenSoure.Token;
+            _cancelTokenSource = new CancellationTokenSource();
+            _token = _cancelTokenSource.Token;
 
             CustomerSpeed = 100;
             CashDeskSpeed = 100;
@@ -42,14 +64,44 @@ namespace CrmBl.Model
             }
         }
 
+		/// <summary>
+		/// Кассы.
+		/// </summary>
         public List<CashDesk> CashDesks { get; set; }
+		
+		/// <summary>
+		/// Корзины.
+		/// </summary>
         public List<Cart> Carts { get; set; }
+		
+		/// <summary>
+		/// Чеки.
+		/// </summary>
         public List<Check> Checks { get; set; }
+		
+		/// <summary>
+		/// Продажи.
+		/// </summary>
         public List<Sell> Sells { get; set; }
+		
+		/// <summary>
+		/// Продавцы.
+		/// </summary>
         public Queue<Seller> Sellers { get; set; }
+		
+		/// <summary>
+		/// Скорость покупателей.
+		/// </summary>
         public int CustomerSpeed { get; set; }
+		
+		/// <summary>
+		/// Скорость кассы.
+		/// </summary>
         public int CashDeskSpeed { get; set; }
 
+		/// <summary>
+		/// Начинает моделирование.
+		/// </summary>
         public void Start()
         {
             _tasks.Add(new Task(() => CreateCarts(10)));
@@ -60,11 +112,20 @@ namespace CrmBl.Model
             }
         }
 
+		/// <summary>
+		/// Останавливает моделирование.
+		/// </summary>
         public void Stop()
         {
-            _cancelTokenSoure.Cancel();           
+            _cancelTokenSource.Cancel();
+            Thread.Sleep(1000);
+            _cancelTokenSource.Dispose();
         }
 
+		/// <summary>
+		/// Идёт работа кассы.
+		/// </summary>
+		/// <param name="cashDesk"> Касса. </param>
         private void CashDeskWork(CashDesk cashDesk)
         {
             while (!_token.IsCancellationRequested)
@@ -77,6 +138,10 @@ namespace CrmBl.Model
             }
         }
 
+		/// <summary>
+		/// Создаёт корзины.
+		/// </summary>
+		/// <param name="customerCounts"> Количество покупателей. </param>
         private void CreateCarts(int customerCounts)
         {
             while (!_token.IsCancellationRequested)
@@ -92,8 +157,6 @@ namespace CrmBl.Model
                         cart.Add(product);
                     }
 
-                    //var min = CashDesks.Min(c => c.Count);
-                    //var cash = CashDesks.FirstOrDefault(c => c.Count == min);
                     var cash = CashDesks[_rnd.Next(CashDesks.Count)];
                     cash.Enqueue(cart);
                 }

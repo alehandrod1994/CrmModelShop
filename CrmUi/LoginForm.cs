@@ -1,5 +1,8 @@
 ﻿using CrmBl.Model;
+using CrmShopModel.UI;
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace CrmUi
@@ -15,15 +18,26 @@ namespace CrmUi
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(textBox1.Text))
+            #region Проверка контролов
+            List<Control> controls = Checker.CheckControlsOnNull(Controls);
+            if (controls.Count > 0)
             {
-                Customer = new Customer()
+                foreach (Control control in controls)
                 {
-                    Name = textBox1.Text
-                };
+                    control.BackColor = Color.LightCoral;
+                }
 
-                DialogResult = DialogResult.OK;
+                MessageBox.Show("Заполните все поля.");
+                return;
             }
+            #endregion
+
+            Customer = new Customer()
+            {
+                Name = textBox1.Text
+            };
+
+            DialogResult = DialogResult.OK;           
         }
     }
 }

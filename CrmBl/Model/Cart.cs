@@ -4,51 +4,95 @@ using System.Linq;
 
 namespace CrmBl.Model
 {
-    public class Cart : IEnumerable
-    {
-        public Cart(Customer customer)
-        {
-            Customer = customer;
-            Products = new Dictionary<Product, int>();
-        }
+	/// <summary>
+	/// Корзина.
+	/// </summary>
+	public class Cart : IEnumerable
+	{
+		/// <summary>
+		/// Инициализирует новый экземпляр класса Cart.
+		/// </summary>
+		/// <param name="customer"> Покупатель. </param>
+		public Cart(Customer customer)
+		{
+			Customer = customer;
+			Products = new Dictionary<Product, int>();
+		}
 
-        public Customer Customer { get; set; }
-        public Dictionary<Product, int> Products { get; set; }
-        public decimal Price => GetAll().Sum(p => p.Price);
+		/// <summary>
+		/// Покупатель.
+		/// </summary>
+		public Customer Customer { get; set; }
+		
+		/// <summary>
+		/// Товары.
+		/// </summary>
+		public Dictionary<Product, int> Products { get; set; }
+		
+		/// <summary>
+		/// Общая стоимость.
+		/// </summary>
+		public decimal Price => GetAll().Sum(p => p.Price);
 
-        public void Add(Product product)
-        {
-            if (Products.TryGetValue(product, out int count))
-            {
-                Products[product] = ++count;
-            }
-            else
-            {
-                Products.Add(product, 1);
-            }
-        }
+		/// <summary>
+		/// Добавляет товар.
+		/// </summary>
+		public void Add(Product product)
+		{
+			if (Products.TryGetValue(product, out int count))
+			{
+				Products[product] = ++count;
+			}
+			else
+			{
+				Products.Add(product, 1);
+			}
+		}
 
-        public IEnumerator GetEnumerator()
-        {
-            foreach(var product in Products.Keys)
-            {
-                for (int i = 0; i < Products[product]; i++)
+		/// <summary>
+		/// Удаляет товар.
+		/// </summary>
+		/// <param name="product"> Товар. </param>
+		public void Remove(Product product)
+		{
+			if (Products.TryGetValue(product, out int count))
+			{
+				if (Products[product] <= 1)
+				{
+					Products.Remove(product);
+				}
+				else
                 {
-                    yield return product;
-                }
-            }
-        }
+					Products[product] = --count;
+				}									
+			}
+		}
 
-        public List<Product> GetAll()
-        {
-            var result = new List<Product>();
+		public IEnumerator GetEnumerator()
+		{
+			foreach(var product in Products.Keys)
+			{
+				for (int i = 0; i < Products[product]; i++)
+				{
+					yield return product;
+				}
+			}
+		}
 
-            foreach (Product product in this)
-            {
-                result.Add(product);
-            }
+		/// <summary>
+		/// Получает список всех товаров.
+		/// </summary>
+		/// <returns> Список товаров. </returns>
+		public List<Product> GetAll()
+		{
+			var result = new List<Product>();
 
-            return result;
-        }
-    }
+			foreach (Product product in this)
+			{
+				result.Add(product);
+			}
+
+			return result;
+		}
+	}
 }

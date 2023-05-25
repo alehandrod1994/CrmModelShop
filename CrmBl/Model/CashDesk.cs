@@ -3,10 +3,22 @@ using System.Collections.Generic;
 
 namespace CrmBl.Model
 {
+	/// <summary>
+	/// Касса.
+	/// </summary>
     public class CashDesk
     {
+		/// <summary>
+		/// Контекст БД.
+		/// </summary>
         private readonly CrmContext _db;
 
+		/// <summary>
+		/// Инициализирует новый экземпляр класса CashDesk.
+		/// </summary>
+		/// <param name="number"> Номер. </param>
+		/// <param name="seller"> Продавец. </param>
+		/// <param name="db"> Контекст БД. </param>
         public CashDesk(int number, Seller seller, CrmContext db)
         {
             Number = number;
@@ -17,15 +29,51 @@ namespace CrmBl.Model
             _db = db ?? new CrmContext();
         }
 
+		/// <summary>
+		/// Номер.
+		/// </summary>
+		
         public int Number { get; set; }
+		
+		/// <summary>
+		/// Продавец.
+		/// </summary>
         public Seller Seller { get; set; }
+		
+		/// <summary>
+		/// Очередь.
+		/// </summary>
         public Queue<Cart> Queue { get; set; }
+		
+		/// <summary>
+		/// Максимальная длина очереди.
+		/// </summary>
         public int MaxQueueLength { get; set; }
+		
+		/// <summary>
+		/// Количество покупателей, которые покинули магазин до оплаты ввиду максимальной очереди в кассе.
+		/// </summary>
         public int ExitCustomer { get; set; }
+		
+		/// <summary>
+		/// Указывает, включено ли компьютерное моделирование.
+		/// </summary>
         public bool IsModel { get; set; }
+		
+		/// <summary>
+		/// Количество покупателей в очереди.
+		/// </summary>
         public int Count => Queue.Count;
+		
+		/// <summary>
+		/// Событие, которое происходит после закрытия чека.
+		/// </summary>
         public event EventHandler<Check> CheckClosed;
 
+        /// <summary>
+        /// Добавляет покупателей с товарами.
+        /// </summary>
+        /// <param name="cart"> Корзина покупателя с товарами. </param>
         public void Enqueue(Cart cart)
         {
             if (Queue.Count < MaxQueueLength)
@@ -38,6 +86,10 @@ namespace CrmBl.Model
             }
         }
 
+        /// <summary>
+        /// Производит оплату товаров.
+        /// </summary>
+        /// <returns> Стоимость. </returns>
         public decimal Dequeue()
         {
             decimal sum = 0;
